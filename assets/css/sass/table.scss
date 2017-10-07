@@ -9,6 +9,13 @@ table.pokemon-table {
     }
 
     tbody {
+        tr {
+            transition:background 150ms ease-out;
+            &:hover {
+                background:#eeeeee;
+                cursor: pointer;
+            }
+        }
         td {
             border-top:1px solid black;
             padding:5px;
