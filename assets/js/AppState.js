@@ -1,12 +1,14 @@
 export const defaultState = {
-    pokemon: {}
+    all_pokemon: {},
+    pokemon_count: 0
 };
 
 export const AppActions = {
-    SetPokemonDisplay: pokemon => {
+    SetAllPokemon: (pokemon, count) => {
         return {
-            type: "SET_POKEMON_DISPLAY",
-            pokemon: pokemon
+            type: "SET_ALL_POKEMON",
+            pokemon: pokemon,
+            count: count
         }
     }
 }
@@ -14,10 +16,11 @@ export const AppActions = {
 export default function AppState(state, action) {
     switch(action.type) {
 
-        case "SET_POKEMON_DISPLAY":
+        case "SET_ALL_POKEMON":
             let newState = Object.assign({}, state);
-            newState.pokemon = action.pokemon;
-            return newState
+            newState.all_pokemon = action.pokemon;
+            newState.pokemon_count = action.count;
+            return newState;
 
         default:
             return state

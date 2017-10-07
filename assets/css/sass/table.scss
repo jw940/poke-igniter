@@ -1,0 +1,21 @@
+table.pokemon-table {
+    width:100%;
+    th {
+        background:#4c4c4c;
+        h3 {
+            color: white;
+            margin: 10px 0 10px 5px;
+        }
+    }
+
+    tbody {
+        td {
+            border-top:1px solid black;
+            padding:5px;
+            &:first-child {
+                border-right: 1px solid black;
+            }
+        }
+    }
+
+}
