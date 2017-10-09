@@ -1,9 +1,12 @@
 .ability {
     position: relative;
+    margin:15px 0;
+    cursor: default;
     p {
         display:inline;
     }
     .effect-desc {
+        padding:5px;
         display:block;
         opacity: 0;
         pointer-events: none;

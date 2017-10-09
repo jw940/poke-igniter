@@ -2,7 +2,9 @@ export const defaultState = {
     all_pokemon: {},
     all_abilities: {},
     pokemon_count: 0,
-    viewing_pokemon: null
+    viewing_pokemon: null,
+    page: 1,
+    per_page: 10
 };
 
 export const AppActions = {
@@ -34,6 +36,12 @@ export const AppActions = {
         return {
             type: "UPDATE_ABILITY_DETAILS",
             ability: ability
+        }
+    },
+    SwitchPage: page => {
+        return {
+            type: "SWITCH_PAGE",
+            page: page
         }
     }
 }
@@ -79,6 +87,10 @@ export default function AppState(state, action) {
 
         case "CLOSE_CARD":
             newState.viewing_pokemon = null;
+            return newState;
+
+        case "SWITCH_PAGE":
+            newState.page = action.page;
             return newState;
 
         default:

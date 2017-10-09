@@ -13,7 +13,7 @@ class PokemonList extends Component {
         if (!this.props.all_pokemon.length) {
             
             // fetch all pokemon
-            fetch("https://pokeapi.co/api/v2/pokemon/", {
+            fetch("https://pokeapi.co/api/v2/pokemon/?limit=1000", {
                 method:"GET",
                 mode: "cors",
             })
@@ -35,7 +35,9 @@ class PokemonList extends Component {
     renderTableRows() {
         let render = [];
 
-        for (let i = 0; i < this.props.all_pokemon.length; i++) {
+        let offset = (this.props.page - 1) * this.props.per_page
+
+        for (let i = offset; i < (offset + this.props.per_page) && i < this.props.all_pokemon.length; i++) {
             let p = this.props.all_pokemon[i];
             render.push(
                 <TableRow pokemon={p} key={p.id} />
@@ -44,10 +46,32 @@ class PokemonList extends Component {
 
         return render;
     }
+
+    renderPagination() {
+        let render = [];
+
+        let page_count = this.props.pokemon_count / this.props.per_page;
+
+        let starting_pagination_number = (this.props.page - 5) > 0 ? this.props.page - 5 : 1
+
+        for (let i = starting_pagination_number; i < page_count && i < (starting_pagination_number + 10); i++) {
+            let pagination_class_names = "table-pagination"
+            if (i == this.props.page) pagination_class_names += " table-pagination-active";
+            render.push(
+                <a key={i} onClick={this.switchPage.bind(this, i)} className={pagination_class_names}>{i}</a>
+            )
+        }
+        return render;
+    }
+
+    switchPage(page) {
+        this.props.switchPage(page);
+    }
     
     render() {
 
         let rows = this.renderTableRows();
+        let pagination = this.renderPagination();
 
         return (
             <div className="container">
@@ -59,7 +83,22 @@ class PokemonList extends Component {
                                 <h3>Name</h3>
                             </th>
                             <th>
-                                <h3>URL</h3>
+                                <h3>HP</h3>
+                            </th>
+                            <th>
+                                <h3>Attack</h3>
+                            </th>
+                            <th>
+                                <h3>Defense</h3>
+                            </th>
+                            <th>
+                                <h3>Special<br/> Attack</h3>
+                            </th>
+                            <th>
+                                <h3>Special<br/> Defense</h3>
+                            </th>
+                            <th>
+                                <h3>Speed</h3>
                             </th>
                         </tr>
                     </thead>
@@ -67,7 +106,10 @@ class PokemonList extends Component {
                         {rows}
                     </tbody>
                 </table>
-                <h3>Total pokemon: {this.props.pokemon_count}</h3>
+                <h5>Total pokemon: {this.props.pokemon_count}</h5>
+                <div className="pagination-container">
+                    {pagination}
+                </div>
             </div>
         )
     }
@@ -76,7 +118,9 @@ class PokemonList extends Component {
 const mapStateToProps = state => {
     return {
         all_pokemon: state.all_pokemon,
-        pokemon_count: state.pokemon_count
+        pokemon_count: state.pokemon_count,
+        page: state.page,
+        per_page: state.per_page
     }
 }
 
@@ -84,6 +128,9 @@ const mapDispatchToProps = dispatch => {
     return {
         setAllPokemon: (pokemon, count) => {
             dispatch(AppActions.SetAllPokemon(pokemon, count));
+        },
+        switchPage: page => {
+            dispatch(AppActions.SwitchPage(page));
         }
     }
 }

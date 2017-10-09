@@ -32,12 +32,12 @@ class Ability extends Component {
         // depending if the details have been retrieved from the API yet
         let name = this.props.ability.ability ? this.props.ability.ability.name : this.props.ability.name;
 
-        let description = this.props.ability.effect_entries ? this.props.ability.effect_entries[0].effect.replace("\n", "") : "";
+        let description = this.props.ability.effect_entries ? this.props.ability.effect_entries[0].effect.replace("\n", "") : "Loading...";
 
         if (this.props.ability) {
             return (
                 <div className="ability">
-                    <p>{name}</p>
+                    <p>{name.capitalize()}</p>
                     <div className="effect-desc">
                         <p>{description}</p>
                     </div>

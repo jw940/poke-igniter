@@ -30,7 +30,7 @@ class PokemonCard extends Component {
                 <div className="pokemon-stat col-xs-2" key={i}>
                     <div ref={"stat-" + s.stat.name} className={"stat-bar stat-" + s.stat.name} style={barStyle}>
                         <p>{s.base_stat}</p>
-                        <p className="stat-label">{s.stat.name}</p>
+                        <p className="stat-label">{s.stat.name.capitalize().replace("-", " ")}</p>
                     </div>
                 </div>
             )
@@ -64,7 +64,7 @@ class PokemonCard extends Component {
                     <div className="pokemon-card-inner col-md-6 col-sm-8 col-xs-12">
                     <a className="pokemon-card-close" onClick={this.closeCard}>X</a>
                     <img className="img-responsive" src={pokemon.sprites.front_default} />
-                    <h2>{pokemon.name}</h2>
+                    <h2>{pokemon.name.capitalize()}</h2>
                     <div className="stats-barchart col-sm-7">
                         <h4>Stats</h4>
                         {renderStatBars}

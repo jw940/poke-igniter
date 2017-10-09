@@ -2,9 +2,12 @@ table.pokemon-table {
     width:100%;
     th {
         background:#4c4c4c;
+        width:12%;
         h3 {
             color: white;
             margin: 10px 0 10px 5px;
+            font-size:18px;
+            line-height: 24px;
         }
     }
 
@@ -17,12 +20,28 @@ table.pokemon-table {
             }
         }
         td {
+            width:12%;
             border-top:1px solid black;
             padding:5px;
-            &:first-child {
-                border-right: 1px solid black;
-            }
         }
     }
+}
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    .table-pagination {
+        margin:0 5px;
+        padding:5px;
+        border:1px solid black;
+        color:black;
+        cursor: pointer;
+        transition:color 150ms ease-out;
+        &:hover, &-active {
+            text-decoration: none;
+            background:#4c4c4c;
+            color: white;
+        }
+    }
 }

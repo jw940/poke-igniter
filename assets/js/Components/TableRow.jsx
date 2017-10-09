@@ -5,7 +5,6 @@ import {AppActions} from '../AppState';
 class TableRow extends Component {
 
     componentDidMount() {
-
         // if we haven't already retrieved the details for this pokemon, fetch them
         if (!this.props.pokemon.details_fetched) {
 
@@ -23,7 +22,20 @@ class TableRow extends Component {
             })
 
         }
+    }
 
+    renderStats() {
+        let renderStats = [];
+        let i = 0;
+        this.props.pokemon.stats.forEach(s => {
+            renderStats.push(
+                <td key={i}>
+                    <p>{s.base_stat}</p>
+                </td>
+            )
+            i++;
+        })
+        return renderStats.reverse();
     }
 
     render() {
@@ -31,11 +43,12 @@ class TableRow extends Component {
         let pokemon = this.props.pokemon;
 
         if (this.props.pokemon.details_fetched) {
+            let renderStats = this.renderStats();
             return (
                 <tr onClick={() => {this.props.openPokemonCard(pokemon.id)}}>
                     <td><img src={pokemon.sprites.front_default} className="img-responsive" /></td>
-                    <td>{pokemon.name}</td>
-                    <td>{pokemon.url}</td>
+                    <td>{pokemon.name.capitalize()}</td>
+                    {renderStats}
                 </tr>
             );
         } else {
