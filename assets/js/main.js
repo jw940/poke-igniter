@@ -5,9 +5,9 @@ import { createStore } from 'redux'
 import AppState, {defaultState} from './AppState'
 import AppRoot from './AppRoot'
 
-// Most API content is lowercase, modify String object to allow easy capitalization
+// Most API content is lowercase with dashes, modify String object to allow easy capitalization
 String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+    return (this.charAt(0).toUpperCase() + this.slice(1)).replace("-", " ");
 }
 
 // Create store to hold application state

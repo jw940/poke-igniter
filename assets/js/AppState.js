@@ -4,7 +4,8 @@ export const defaultState = {
     pokemon_count: 0,
     viewing_pokemon: null,
     page: 1,
-    per_page: 10
+    per_page: 10,
+    search: ""
 };
 
 export const AppActions = {
@@ -42,6 +43,18 @@ export const AppActions = {
         return {
             type: "SWITCH_PAGE",
             page: page
+        }
+    },
+    UpdateSearch: search => {
+        return {
+            type: "UPDATE_SEARCH",
+            search: search
+        }
+    },
+    UpdatePerPage: per_page => {
+        return {
+            type: "UPDATE_PER_PAGE",
+            per_page: per_page
         }
     }
 }
@@ -91,6 +104,14 @@ export default function AppState(state, action) {
 
         case "SWITCH_PAGE":
             newState.page = action.page;
+            return newState;
+
+        case "UPDATE_SEARCH":
+            newState.search = action.search;
+            return newState;
+
+        case "UPDATE_PER_PAGE":
+            newState.per_page = parseInt(action.per_page);
             return newState;
 
         default:

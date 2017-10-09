@@ -1,3 +1,26 @@
+.table-controls {
+    margin-bottom: 15px;
+    .col-sm-6 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height:40px;
+        input.table-search {
+            padding:2px;
+            border-left:0;
+            border-top:0;
+            border-right:0;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        &:last-child {
+            justify-content: flex-end;
+        }
+        p {
+            margin: 0 15px 0 0;
+        }
+    }
+}
+
 table.pokemon-table {
     width:100%;
     th {

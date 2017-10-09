@@ -7,10 +7,12 @@ class PokemonList extends Component {
 
     constructor(props) {
         super(props);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handlePerPageChange = this.handlePerPageChange.bind(this);
     }
 
     componentDidMount() {
-        if (!this.props.all_pokemon.length) {
+        if (!this.props.pokemon_results.length) {
             
             // fetch all pokemon
             fetch("https://pokeapi.co/api/v2/pokemon/?limit=1000", {
@@ -24,7 +26,7 @@ class PokemonList extends Component {
                 // set the pokemon's ID to the number reference from their URL
                 json.results.forEach(pokemon => {
                     // get the characters at that position and remove slashes
-                    pokemon.id = parseInt(pokemon.url.slice(34, 37).replace("/", ""));
+                    pokemon.id = parseInt(pokemon.url.slice(34).replace("/", ""));
                 })
                 this.props.setAllPokemon(json.results, json.count);
             })
@@ -37,8 +39,8 @@ class PokemonList extends Component {
 
         let offset = (this.props.page - 1) * this.props.per_page
 
-        for (let i = offset; i < (offset + this.props.per_page) && i < this.props.all_pokemon.length; i++) {
-            let p = this.props.all_pokemon[i];
+        for (let i = offset; i < (offset + this.props.per_page) && i < this.props.pokemon_results.length; i++) {
+            let p = this.props.pokemon_results[i];
             render.push(
                 <TableRow pokemon={p} key={p.id} />
             )
@@ -50,11 +52,15 @@ class PokemonList extends Component {
     renderPagination() {
         let render = [];
 
-        let page_count = this.props.pokemon_count / this.props.per_page;
+        let page_count = Math.ceil(this.props.pokemon_results.length / this.props.per_page);
+    
+        console.log(page_count);
+
+        if (page_count < 1) page_count = 1;
 
         let starting_pagination_number = (this.props.page - 5) > 0 ? this.props.page - 5 : 1
 
-        for (let i = starting_pagination_number; i < page_count && i < (starting_pagination_number + 10); i++) {
+        for (let i = starting_pagination_number; i <= page_count && i < (starting_pagination_number + 10); i++) {
             let pagination_class_names = "table-pagination"
             if (i == this.props.page) pagination_class_names += " table-pagination-active";
             render.push(
@@ -67,6 +73,14 @@ class PokemonList extends Component {
     switchPage(page) {
         this.props.switchPage(page);
     }
+
+    handleSearch(e) {
+        this.props.updateSearch(e.target.value);
+    }
+
+    handlePerPageChange(e) {
+        this.props.updatePerPage(e.target.value);
+    }
     
     render() {
 
@@ -75,6 +89,20 @@ class PokemonList extends Component {
 
         return (
             <div className="container">
+                <div className="table-controls row">
+                    <div className="col-sm-6">
+                        <input placeholder="Search..." className="table-search" onChange={this.handleSearch} />
+                    </div>
+                    <div className="col-sm-6">
+                        <p>Pokémon per page:</p>
+                        <select onChange={this.handlePerPageChange} value={this.props.per_page}>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
                 <table className="pokemon-table">
                     <thead>
                         <tr>
@@ -116,11 +144,21 @@ class PokemonList extends Component {
 }
 
 const mapStateToProps = state => {
+
+    let pokemon_results = state.all_pokemon;
+    
+    if (state.search) {
+        pokemon_results = pokemon_results.filter(p => {
+            return p.name.includes(state.search)
+        })
+    }
+
     return {
-        all_pokemon: state.all_pokemon,
+        pokemon_results: pokemon_results,
         pokemon_count: state.pokemon_count,
         page: state.page,
-        per_page: state.per_page
+        per_page: state.per_page,
+        search: state.search
     }
 }
 
@@ -131,6 +169,12 @@ const mapDispatchToProps = dispatch => {
         },
         switchPage: page => {
             dispatch(AppActions.SwitchPage(page));
+        },
+        updateSearch: search => {
+            dispatch(AppActions.UpdateSearch(search));
+        },
+        updatePerPage: per_page => {
+            dispatch(AppActions.UpdatePerPage(per_page));
         }
     }
 }
