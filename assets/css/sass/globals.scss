@@ -9,6 +9,9 @@ html, body {
     display: flex;
     justify-content: center;
     padding:15px;
+    .app-main {
+        margin-top:50px;
+    }
 }
 
 h1, h2, h3 {

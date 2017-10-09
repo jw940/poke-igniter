@@ -1,5 +1,6 @@
 export const defaultState = {
     all_pokemon: {},
+    all_abilities: {},
     pokemon_count: 0,
     viewing_pokemon: null
 };
@@ -28,6 +29,12 @@ export const AppActions = {
         return {
             type: "CLOSE_CARD"
         }
+    },
+    UpdateAbilityDetails: ability => {
+        return {
+            type: "UPDATE_ABILITY_DETAILS",
+            ability: ability
+        }
     }
 }
 
@@ -53,6 +60,17 @@ export default function AppState(state, action) {
             newState.all_pokemon = all_pokemon.sort((a, b) => {
                 return parseInt(a.id) > parseInt(b.id)
             })
+            return newState;
+
+        case "UPDATE_ABILITY_DETAILS":
+            // same pattern as updating pokemon
+            let all_abilities = newState.all_abilities.length ? newState.all_abilities.filter(a => {
+                return a.id != action.ability.id
+            }) : [];
+            all_abilities.push(action.ability);
+            newState.all_abilities = all_abilities.sort((a, b) => {
+                return parseInt(a.id) > parseInt(b.id)
+            });
             return newState;
 
         case "OPEN_POKEMON_CARD":

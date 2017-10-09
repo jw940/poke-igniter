@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "cookie-parser": "^1.4.3",
-    "gsap": "^1.20.2",
+    "gsap": "^1.20.3",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-sourcemaps": "^2.6.0",
     "react": "^15.3.2",

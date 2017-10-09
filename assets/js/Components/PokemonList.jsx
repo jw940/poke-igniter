@@ -24,7 +24,7 @@ class PokemonList extends Component {
                 // set the pokemon's ID to the number reference from their URL
                 json.results.forEach(pokemon => {
                     // get the characters at that position and remove slashes
-                    pokemon.id = pokemon.url.slice(34, 37).replace("/", "");
+                    pokemon.id = parseInt(pokemon.url.slice(34, 37).replace("/", ""));
                 })
                 this.props.setAllPokemon(json.results, json.count);
             })
