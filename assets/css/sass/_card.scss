@@ -220,4 +220,17 @@
             }
         }
     }
+    .compare-button {
+        color:black;
+        background:transparent;
+        border:1px solid #4c4c4c;
+        transition:color 150ms ease-out;
+        cursor: pointer;
+        padding:5px 15px;
+        &:hover {
+            text-decoration: none;
+            color:white;
+            background:#4c4c4c;
+        }
+    }
 }

@@ -34,6 +34,11 @@ class Ability extends Component {
 
         let description = this.props.ability.effect_entries ? this.props.ability.effect_entries[0].effect.replace("\n", "") : "Loading...";
 
+        if (description.length > 125) {
+            description = description.slice(0, 125);
+            description += "...";
+        }
+
         if (this.props.ability) {
             return (
                 <div className="ability">

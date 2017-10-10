@@ -180,6 +180,7 @@ export default function AppState(state, action) {
         case "CHANGE_VIEW":
             newState.current_view = action.view;
             newState.page = 1;
+            newState.search = "";
             return newState;
 
         case "SAVE_POKEMON_TOGGLE":
