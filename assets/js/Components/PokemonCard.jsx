@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {AppActions} from '../AppState';
 
 import Ability from './Ability';
+import Type from './Type';
 import 'gsap';
 
 class PokemonCard extends Component {
@@ -52,11 +53,24 @@ class PokemonCard extends Component {
         return renderAbilities;
     }
 
+    renderTypes() {
+        let renderTypes = [];
+        let i = 0;
+        this.props.pokemon.types.forEach(t => {
+            // if we haven't already got the type id, get it out of the url
+            if (!t.id) t.id = parseInt(t.type.url.slice(31).replace("/", ""));
+            renderTypes.push(<Type key={i} type={t} />)
+            i++;
+        })
+        return renderTypes;
+    }
+
     render() {
 
         let pokemon = this.props.pokemon
         let renderStatBars = this.renderStatBars();
         let renderAbilities = this.renderAbilities();
+        let renderTypes = this.renderTypes();
 
         return (
             <div className="pokemon-card">
@@ -65,11 +79,13 @@ class PokemonCard extends Component {
                     <a className="pokemon-card-close" onClick={this.closeCard}>X</a>
                     <img className="img-responsive" src={pokemon.sprites.front_default} />
                     <h2>{pokemon.name.capitalize()}</h2>
-                    <div className="stats-barchart col-sm-7">
+                    <div className="stats-barchart col-sm-8">
                         <h4>Stats</h4>
                         {renderStatBars}
                     </div>
-                    <div className="abilities col-sm-5">
+                    <div className="abilities col-sm-4">
+                        <h4>Types</h4>
+                        {renderTypes}
                         <h4>Abilities</h4>
                         {renderAbilities}
                     </div>

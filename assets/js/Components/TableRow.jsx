@@ -31,7 +31,7 @@ class TableRow extends Component {
             let classNames = "";
             if (i > 3) classNames += "hidden-xs";
             renderStats.push(
-                <td key={i} classNames={classNames}>
+                <td key={i} className={classNames}>
                     <p>{s.base_stat}</p>
                 </td>
             )

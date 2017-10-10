@@ -1,6 +1,7 @@
 export const defaultState = {
     all_pokemon: {},
     all_abilities: {},
+    all_types: {},
     pokemon_count: 0,
     viewing_pokemon: null,
     page: 1,
@@ -38,6 +39,12 @@ export const AppActions = {
         return {
             type: "UPDATE_ABILITY_DETAILS",
             ability: ability
+        }
+    },
+    UpdateTypeDetails: type => {
+        return {
+            type: "UPDATE_TYPE_DETAILS",
+            type: type
         }
     },
     SwitchPage: page => {
@@ -97,6 +104,16 @@ export default function AppState(state, action) {
             }) : [];
             all_abilities.push(action.ability);
             newState.all_abilities = all_abilities.sort((a, b) => {
+                return parseInt(a.id) > parseInt(b.id)
+            });
+            return newState;
+
+        case "UPDATE_TYPE_DETAILS":
+            let all_types = newState.all_types.length ? newState.all_types.filter(t => {
+                return t.id != action.type.id
+            }) : [];
+            all_types.push(action.type);
+            newState.all_types = all_types.sort((a, b) => {
                 return parseInt(a.id) > parseInt(b.id)
             });
             return newState;

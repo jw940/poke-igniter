@@ -53,8 +53,6 @@ class PokemonList extends Component {
         let render = [];
 
         let page_count = Math.ceil(this.props.pokemon_results.length / this.props.per_page);
-    
-        console.log(page_count);
 
         if (page_count < 1) page_count = 1;
 

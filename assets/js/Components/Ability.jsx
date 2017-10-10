@@ -55,6 +55,9 @@ class Ability extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 
+    // if the ability is in the state, use the state's copy of the ability otherwise use the
+    // limited information version passed by the component's parent
+
     let ability = state.all_abilities.length ? state.all_abilities.filter(a => {
         return a.id == ownProps.ability.id;
     }).pop() : null;

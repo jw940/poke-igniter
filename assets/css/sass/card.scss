@@ -42,6 +42,9 @@
         h2 {
             margin-top:0;
         }
+        h4:not(:first-child) {
+            margin-top:20px;
+        }
         .stats-barchart {
             min-height:200px;
             margin-bottom: 50px;
@@ -78,6 +81,7 @@
                     p {
                         color: white;
                         font-size:11px;
+                        font-weight: bold;
                         &.stat-label {
                             position: absolute;
                             top:100%;
