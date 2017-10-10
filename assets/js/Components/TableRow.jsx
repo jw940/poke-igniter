@@ -74,7 +74,19 @@ class TableRow extends Component {
             );
         } else {
             return (
-                <tr><td><p>Loading...</p></td></tr>
+                <tr>
+                    <td>
+                        <p>Loading...</p>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="hidden-xs"></td>
+                    <td className="hidden-xs"></td>
+                    <td className="hidden-xs"></td>
+                    <td></td>
+                </tr>
             )
         }
 

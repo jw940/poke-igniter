@@ -103,12 +103,12 @@ class PokemonList extends Component {
                             <option value="50">50</option>
                         </select>
                     </div>
-                    {this.props.selecting_compare &&
-                        <div className="col-sm-12">
-                            <p>*Selecting Pokemon for comparison</p>
-                        </div>
-                    }
                 </div>
+                {this.props.selecting_compare &&
+                    <div className="select-compare-popup">
+                        <p>Select A Pokemon for comparison</p>
+                    </div>
+                }
                 <table className="pokemon-table">
                     <thead>
                         <tr>

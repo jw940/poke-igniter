@@ -11,6 +11,10 @@
             border-top:0;
             border-right:0;
             border-bottom: 2px solid #e5e5e5;
+            width:50%;
+            @media screen and (max-width:767px) {
+                width:75%;
+            }
         }
         @media screen and (min-width:768px) {
             &:last-child {
@@ -32,6 +36,13 @@ table.pokemon-table {
     th {
         background:#4c4c4c;
         width:12%;
+        &:last-child {
+            @media screen and (min-width:992px) {
+                h3 {
+                    margin-right:25px;
+                }
+            }
+        }
         h3 {
             color: white;
             margin: 10px 0 10px 5px;
@@ -60,11 +71,6 @@ table.pokemon-table {
             }
             &:last-child {
                 text-align: center;
-                @media screen and (min-width:992px) {
-                    h3 {
-                        margin-right:25px;
-                    }
-                }
             }
             .pokemon-save {
                 background:url(../img/star.png) no-repeat center center;
@@ -101,4 +107,33 @@ table.pokemon-table {
             color: white;
         }
     }
+}
+
+@keyframes popup-fadeout {
+    0% {opacity:1}
+    50% {opacity:1}
+    100% {opacity:0}
+}
+
+.select-compare-popup {
+    position: absolute;
+    top:30%;
+    left:50%;
+    transform:translateX(-50%);
+    width:300px;
+    height:150px;
+    background:rgba(255,255,255,0.8);
+    border:1px solid black;
+    border-radius: 5px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        font-size:16px;
+    }
+    pointer-events: none;
+    animation:popup-fadeout;
+    animation-duration: 5000ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }

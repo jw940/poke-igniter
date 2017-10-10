@@ -17,6 +17,10 @@ header {
         &:hover {
             text-decoration: underline;
         }
+        @media screen and (max-width:767px) {
+            margin:0 2px;
+            font-size:12px;
+        }
     }
     .col-xs-6 {
         display: flex;

@@ -18,9 +18,9 @@ class Header extends Component {
                         <div className="col-xs-6">
                             <p onClick={this.props.changeView.bind(this, "nav")}>Home</p>
                             <p> | </p>
-                            <p onClick={this.props.changeView.bind(this, "list")}>All Pokemon</p>
+                            <p onClick={this.props.changeView.bind(this, "list")}>All <span className="hidden-xs">Pokemon</span></p>
                             <p> | </p>
-                            <p onClick={this.props.changeView.bind(this, "starred")}>Favourite</p>
+                            <p onClick={this.props.changeView.bind(this, "starred")}>Favourites</p>
                         </div>
                     </div>
                 </div>
