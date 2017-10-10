@@ -60,7 +60,7 @@
                     bottom:0;
                     left:50%;
                     transform:translateX(-50%);
-                    width:50%;
+                    width:65%;
                     background:black;
                     max-height: 100%;
                     &.stat-speed {
@@ -79,7 +79,7 @@
                         background:#F5AC78;
                     }
                     &.stat-hp {
-                        background:#FF5959;
+                        background:#FE6969;
                     }
                     p {
                         color: white;
@@ -91,6 +91,16 @@
                             width:100%;
                             text-align: center;
                             color: black;
+                        }
+                    }
+                    &.greater {
+                        p:not(.stat-label) {
+                            color: rgb(0, 100, 0);
+                        }
+                    }
+                    &.lesser {
+                        p:not(.stat-label) {
+                            color: rgb(150, 0, 0);
                         }
                     }
                 }

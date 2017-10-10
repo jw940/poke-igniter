@@ -37,6 +37,7 @@ class PokemonList extends Component {
     renderTableRows() {
         let render = [];
 
+        // get the pokemon to fetch based on page and pokemon per page
         let offset = (this.props.page - 1) * this.props.per_page
 
         for (let i = offset; i < (offset + this.props.per_page) && i < this.props.pokemon_results.length; i++) {
@@ -52,10 +53,12 @@ class PokemonList extends Component {
     renderPagination() {
         let render = [];
 
+        // page count will be Number of pokemon / Pokemon per page
         let page_count = Math.ceil(this.props.pokemon_results.length / this.props.per_page);
 
         if (page_count < 1) page_count = 1;
 
+        // aiming to keep the active page in the middle so there's ~5 pages to click on either forwards or backwards
         let starting_pagination_number = (this.props.page - 5) > 0 ? this.props.page - 5 : 1
 
         for (let i = starting_pagination_number; i <= page_count && i < (starting_pagination_number + 10); i++) {

@@ -22,23 +22,64 @@ class PokemonCard extends Component {
         }
     }
 
-    renderStatBars(pokemon) {
+    renderStatBars(pokemon, pokemon_2) {
         let renderStats = [];
-        let i = 0;
-        pokemon.stats.forEach(s => {
-            let barStyle = {
-                height: s.base_stat + "%"
-            }
-            renderStats.push(
-                <div className="pokemon-stat col-xs-2" key={i}>
-                    <div ref={"stat-" + s.stat.name} className={"stat-bar stat-" + s.stat.name} style={barStyle}>
-                        <p>{s.base_stat}</p>
-                        <p className="stat-label">{s.stat.name.capitalize().replace("-", " ")}</p>
+        // if two pokemon are provided to the function, generate a bar graph comparing stat diff
+        if (null != pokemon_2) {
+            // use for..in instead of forEach so we can easily access the same stat from both Pokemon
+            for (let i = 0; i < pokemon.stats.length; i++) {
+                let own_stat = pokemon.stats[i]
+                let compare_stat = pokemon_2.stats[i]
+
+                let bar_classes = "stat-bar stat-" + own_stat.stat.name;
+
+                // add a CSS class if the stat is greater or smaller for styling
+
+                let stat_val = own_stat.base_stat;
+
+                if (own_stat.base_stat > compare_stat.base_stat) {
+                    bar_classes += " greater"
+                    stat_val += " (+" + (own_stat.base_stat - compare_stat.base_stat) + ")"
+                } else if (own_stat.base_stat < compare_stat.base_stat) {
+                    bar_classes += " lesser"
+                    stat_val += " (-" + (compare_stat.base_stat - own_stat.base_stat)+ ")"
+                }
+
+                let barStyle = {
+                    height: own_stat.base_stat + "%"
+                }
+
+                let stat_label = own_stat.stat.name.capitalize().replace("-", " ")
+
+                renderStats.push(
+                    <div className="pokemon-stat col-xs-2" key={i}>
+                        <div ref={pokemon.name + "-stat-" + own_stat.stat.name} className={bar_classes} style={barStyle}>
+                            <p>{stat_val}</p>
+                            <p className="stat-label">{stat_label}</p>
+                        </div>
                     </div>
-                </div>
-            )
-            i++;
-        })
+                )
+            }
+        } else {
+            let i = 0;
+            pokemon.stats.forEach(s => {
+                let barStyle = {
+                    height: s.base_stat + "%"
+                }
+
+                let stat_label = s.stat.name.capitalize().replace("-", " ");
+
+                renderStats.push(
+                    <div className="pokemon-stat col-xs-2" key={i}>
+                        <div ref={pokemon.name + "-stat-" + s.stat.name} className={"stat-bar stat-" + s.stat.name} style={barStyle}>
+                            <p>{s.base_stat}</p>
+                            <p className="stat-label">{stat_label}</p>
+                        </div>
+                    </div>
+                )
+                i++;
+            })
+        }
         // Reverse stats array as Pokeapi seems to provide them in reverse order
         return renderStats.reverse();
     }
@@ -73,30 +114,43 @@ class PokemonCard extends Component {
 
         // create card classes for type styling
         let renderBarColors = [];
+        let i = 0;
         pokemon.types.forEach(t => {
             let name = t.type ? t.type.name : t.name;
             let barPartClassName = "bar-color " + name
-            renderBarColors.push(<div className={barPartClassName}></div>)
+            renderBarColors.push(<div className={barPartClassName} key={i}></div>)
+            i++;
         })
         var cardClasses = "pokemon-card-inner col-sm-5 col-xs-12"
         if (pokemon.types.length > 1) cardClasses += " double-type"
         
+        // prepare stats and abilities for pokemon
         let renderStatBars = this.renderStatBars(pokemon);
         let renderAbilities = this.renderAbilities(pokemon);
         let renderTypes = this.renderTypes(pokemon);
 
+
         let compare_pokemon = this.props.compare_pokemon;
+
         if (null != compare_pokemon && compare_pokemon.details_fetched) {
+
+            // re-do first card bars with comparison data
+            renderStatBars = this.renderStatBars(pokemon, compare_pokemon);
+
             // create card classes for type styling
             var renderCompareBarColors = [];
+            i = 0;
             compare_pokemon.types.forEach(t => {
                 let name = t.type ? t.type.name : t.name;
                 let barPartClassName = "bar-color " + name
-                renderCompareBarColors.push(<div className={barPartClassName}></div>)
+                renderCompareBarColors.push(<div className={barPartClassName} key={i}></div>)
+                i++;
             })
             var compareCardClasses = "pokemon-card-compare col-sm-5 col-xs-12";
             if (pokemon.types.length > 1) cardClasses += " double-type"
-            var renderCompareStatBars = this.renderStatBars(compare_pokemon);
+
+            // prepare stats and abilities for compared pokemon
+            var renderCompareStatBars = this.renderStatBars(compare_pokemon, pokemon);
             var renderCompareAbilities = this.renderAbilities(compare_pokemon);
             var renderCompareTypes = this.renderTypes(compare_pokemon);
         }
