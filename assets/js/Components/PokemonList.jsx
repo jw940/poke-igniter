@@ -100,6 +100,11 @@ class PokemonList extends Component {
                             <option value="50">50</option>
                         </select>
                     </div>
+                    {this.props.selecting_compare &&
+                        <div className="col-sm-12">
+                            <p>*Selecting Pokemon for comparison</p>
+                        </div>
+                    }
                 </div>
                 <table className="pokemon-table">
                     <thead>
@@ -156,7 +161,8 @@ const mapStateToProps = state => {
         pokemon_count: state.pokemon_count,
         page: state.page,
         per_page: state.per_page,
-        search: state.search
+        search: state.search,
+        selecting_compare: state.selecting_compare
     }
 }
 

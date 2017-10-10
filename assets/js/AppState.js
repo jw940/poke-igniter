@@ -3,11 +3,13 @@ export const defaultState = {
     all_abilities: {},
     all_types: {},
     pokemon_count: 0,
+    selecting_compare: false,
     viewing_pokemon: null,
+    compare_pokemon: null,
     page: 1,
     per_page: 10,
     search: "",
-    current_view: "nav"
+    current_view: "nav",
 };
 
 export const AppActions = {
@@ -30,9 +32,25 @@ export const AppActions = {
             id: id
         }
     },
+    SelectCompareCard: id => {
+        return {
+            type: "SELECT_COMPARE_CARD",
+            id: id
+        }
+    },
+    SelectCompareMode: () => {
+        return {
+            type: "SELECT_COMPARE_MODE"
+        }
+    },
     CloseCard: () => {
         return {
             type: "CLOSE_CARD"
+        }
+    },
+    CloseCompare: () => {
+        return {
+            type: "CLOSE_COMPARE"
         }
     },
     UpdateAbilityDetails: ability => {
@@ -122,8 +140,22 @@ export default function AppState(state, action) {
             newState.viewing_pokemon = action.id;
             return newState;
 
+        case "SELECT_COMPARE_CARD":
+            newState.compare_pokemon = action.id;
+            newState.selecting_compare = false;
+            return newState;
+
         case "CLOSE_CARD":
             newState.viewing_pokemon = null;
+            newState.compare_pokemon = null;
+            return newState;
+
+        case "CLOSE_COMPARE":
+            newState.compare_pokemon = null;
+            return newState;
+
+        case "SELECT_COMPARE_MODE":
+            newState.selecting_compare = true;
             return newState;
 
         case "SWITCH_PAGE":

@@ -1,4 +1,4 @@
-.pokemon-card {
+.pokemon-card, {
     background-color:rgba(50,50,50,0.5);
     position: fixed;
     width:100%;
@@ -16,11 +16,14 @@
         width:100%;
         height:100%;
     }
-    .pokemon-card-inner {
+    .pokemon-card-inner,
+    .pokemon-card-compare {
+        overflow: hidden;
+        margin: 0 15px;
         max-height: 500px;
         z-index: 2;
         position: relative;
-        border-radius: 5px;
+        border-radius: 10px;
         background:white;
         text-align: center;
         padding:15px 25px;
@@ -90,6 +93,88 @@
                             color: black;
                         }
                     }
+                }
+            }
+        }
+        // Type coloring
+        .card-bar {
+            position: absolute;
+            top:0;
+            left:0;
+            height:10px;
+            width:100%;
+            .bar-color {
+                position: absolute;
+                top:0;
+                left:0;
+                height:100%;
+                width:100%;
+                &:not(:only-child) {
+                    &:first-child {
+                        -webkit-mask-image: -webkit-gradient(linear, left top, 
+                        right top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+                    }
+                    &:last-child {
+                        width:75%;
+                        left:auto;
+                        right:0;
+                        -webkit-mask-image: -webkit-gradient(linear, right top, 
+                        left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+                    }
+                }
+                &.bug {
+                    background:#9EAD19;
+                }
+                &.dark {
+                    background:#4F3A2D;
+                }
+                &.dragon {
+                    background:#755EDF;
+                }
+                &.electric {
+                    background:#FCBA16;
+                }
+                &.fairy {
+                    background:#F3AFF3;
+                }
+                &.fighting {
+                    background:#7C321B;
+                }
+                &.fire {
+                    background:#EC400D;
+                }
+                &.flying {
+                    background:#92A5F2;
+                }
+                &.ghost {
+                    background:#5C5CAD;
+                }
+                &.grass {
+                    background:#73C235;
+                }
+                &.ground {
+                    background:#D1B055;
+                }
+                &.ice {
+                    background:#A8E9FE;
+                }
+                &.normal {
+                    background:#C7C2B9;
+                }
+                &.poison {
+                    background:#8E4290;
+                }
+                &.psychic {
+                    background:#EA457E;
+                }
+                &.rock {
+                    background:#9E863D;
+                }
+                &.steel {
+                    background:#B2B2C2;
+                }
+                &.water {
+                    background:#3193F5;
                 }
             }
         }

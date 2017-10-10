@@ -20,7 +20,7 @@ gulp.task('build', function () {
 });
 
 gulp.task('sass', function () {
-	return gulp.src('./css/sass/*.scss')
+	return gulp.src('./css/sass/main.scss')
 		.pipe(sourcemaps.init())
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(concat("main.css"))

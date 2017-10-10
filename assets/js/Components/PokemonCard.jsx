@@ -11,6 +11,8 @@ class PokemonCard extends Component {
     constructor(props) {
         super(props);
         this.closeCard = this.props.closeCard.bind(this);
+        this.closeCompare = this.props.closeCompare.bind(this);
+        this.selectCompare = this.props.selectCompare.bind(this);
     }
 
     componentDidMount() {
@@ -20,10 +22,10 @@ class PokemonCard extends Component {
         }
     }
 
-    renderStatBars() {
+    renderStatBars(pokemon) {
         let renderStats = [];
         let i = 0;
-        this.props.pokemon.stats.forEach(s => {
+        pokemon.stats.forEach(s => {
             let barStyle = {
                 height: s.base_stat + "%"
             }
@@ -41,10 +43,10 @@ class PokemonCard extends Component {
         return renderStats.reverse();
     }
 
-    renderAbilities() {
+    renderAbilities(pokemon) {
         let renderAbilities = [];
         let i = 0;
-        this.props.pokemon.abilities.forEach(a => {
+        pokemon.abilities.forEach(a => {
             // if we haven't already got the ability id, get it out of the url
             if (!a.id) a.id = parseInt(a.ability.url.slice(34).replace("/", ""));
             renderAbilities.push(<Ability key={i} ability={a} />)
@@ -53,10 +55,10 @@ class PokemonCard extends Component {
         return renderAbilities;
     }
 
-    renderTypes() {
+    renderTypes(pokemon) {
         let renderTypes = [];
         let i = 0;
-        this.props.pokemon.types.forEach(t => {
+        pokemon.types.forEach(t => {
             // if we haven't already got the type id, get it out of the url
             if (!t.id) t.id = parseInt(t.type.url.slice(31).replace("/", ""));
             renderTypes.push(<Type key={i} type={t} />)
@@ -68,14 +70,44 @@ class PokemonCard extends Component {
     render() {
 
         let pokemon = this.props.pokemon
-        let renderStatBars = this.renderStatBars();
-        let renderAbilities = this.renderAbilities();
-        let renderTypes = this.renderTypes();
+
+        // create card classes for type styling
+        let renderBarColors = [];
+        pokemon.types.forEach(t => {
+            let name = t.type ? t.type.name : t.name;
+            let barPartClassName = "bar-color " + name
+            renderBarColors.push(<div className={barPartClassName}></div>)
+        })
+        var cardClasses = "pokemon-card-inner col-sm-5 col-xs-12"
+        if (pokemon.types.length > 1) cardClasses += " double-type"
+        
+        let renderStatBars = this.renderStatBars(pokemon);
+        let renderAbilities = this.renderAbilities(pokemon);
+        let renderTypes = this.renderTypes(pokemon);
+
+        let compare_pokemon = this.props.compare_pokemon;
+        if (null != compare_pokemon && compare_pokemon.details_fetched) {
+            // create card classes for type styling
+            var renderCompareBarColors = [];
+            compare_pokemon.types.forEach(t => {
+                let name = t.type ? t.type.name : t.name;
+                let barPartClassName = "bar-color " + name
+                renderCompareBarColors.push(<div className={barPartClassName}></div>)
+            })
+            var compareCardClasses = "pokemon-card-compare col-sm-5 col-xs-12";
+            if (pokemon.types.length > 1) cardClasses += " double-type"
+            var renderCompareStatBars = this.renderStatBars(compare_pokemon);
+            var renderCompareAbilities = this.renderAbilities(compare_pokemon);
+            var renderCompareTypes = this.renderTypes(compare_pokemon);
+        }
 
         return (
             <div className="pokemon-card">
                 <div className="pokemon-card-click-off" onClick={this.closeCard}></div>
-                    <div className="pokemon-card-inner col-md-6 col-sm-8 col-xs-12">
+                <div className={cardClasses}>
+                    <div className="card-bar">
+                        {renderBarColors}
+                    </div>
                     <a className="pokemon-card-close" onClick={this.closeCard}>X</a>
                     <img className="img-responsive" src={pokemon.sprites.front_default} />
                     <h2>{pokemon.name.capitalize()}</h2>
@@ -89,7 +121,32 @@ class PokemonCard extends Component {
                         <h4>Abilities</h4>
                         {renderAbilities}
                     </div>
+                    {null == this.props.compare_pokemon &&
+                        <div className="compare-link col-sm-12">
+                            <a className="compare-button" onClick={this.selectCompare}>Compare</a>
+                        </div>
+                    }
                 </div>
+                {(null != compare_pokemon && compare_pokemon.details_fetched) &&
+                    <div className={compareCardClasses}>
+                        <div className="card-bar">
+                            {renderCompareBarColors}
+                        </div>
+                        <a className="pokemon-card-close" onClick={this.closeCompare}>X</a>
+                        <img className="img-responsive" src={compare_pokemon.sprites.front_default} />
+                        <h2>{compare_pokemon.name.capitalize()}</h2>
+                        <div className="stats-barchart col-sm-8">
+                            <h4>Stats</h4>
+                            {renderCompareStatBars}
+                        </div>
+                        <div className="abilities col-sm-4">
+                            <h4>Types</h4>
+                            {renderCompareTypes}
+                            <h4>Abilities</h4>
+                            {renderCompareAbilities}
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
@@ -98,18 +155,24 @@ class PokemonCard extends Component {
 
 const mapStateToProps = state => {
     let viewing_pokemon = null;
+    let compare_pokemon = null;
     
     if (state.viewing_pokemon != null) {
-
         // get more details on pokemon and abilities from state
         viewing_pokemon = state.all_pokemon.filter(p => {
             return p.id == state.viewing_pokemon
         }).pop();
+    }
 
+    if (state.compare_pokemon != null) {
+        compare_pokemon = state.all_pokemon.filter(p => {
+            return p.id == state.compare_pokemon
+        }).pop();
     }
 
     return {
-        pokemon: viewing_pokemon
+        pokemon: viewing_pokemon,
+        compare_pokemon: compare_pokemon
     }
 }
 
@@ -117,6 +180,12 @@ const mapDispatchToProps = dispatch => {
     return {
         closeCard: () => {
             dispatch(AppActions.CloseCard());
+        },
+        closeCompare: () => {
+            dispatch(AppActions.CloseCompare());
+        },
+        selectCompare: () => {
+            dispatch(AppActions.SelectCompareMode());
         }
     }
 }

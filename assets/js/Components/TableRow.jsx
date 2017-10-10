@@ -44,10 +44,21 @@ class TableRow extends Component {
 
         let pokemon = this.props.pokemon;
 
+        let onClick;
+        if (this.props.selecting_compare) {
+            onClick = () => {
+                this.props.selectCompareCard(pokemon.id);
+            }
+        } else {
+            onClick = () => {
+                this.props.openPokemonCard(pokemon.id);
+            }
+        }
+
         if (this.props.pokemon.details_fetched) {
             let renderStats = this.renderStats();
             return (
-                <tr onClick={() => {this.props.openPokemonCard(pokemon.id)}}>
+                <tr onClick={onClick}>
                     <td><img src={pokemon.sprites.front_default} className="img-responsive" /></td>
                     <td><p>{pokemon.name.capitalize()}</p></td>
                     {renderStats}
@@ -64,7 +75,7 @@ class TableRow extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        selecting_compare: state.selecting_compare
     }
 }
 
@@ -75,6 +86,9 @@ const mapDispatchToProps = dispatch => {
         },
         openPokemonCard: id => {
             dispatch(AppActions.OpenPokemonCard(id))
+        },
+        selectCompareCard: id => {
+            dispatch(AppActions.SelectCompareCard(id));
         }
     }
 }

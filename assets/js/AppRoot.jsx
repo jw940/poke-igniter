@@ -27,7 +27,7 @@ class AppRoot extends Component {
                 <Header />
                 <div className="app-main">
                 {renderView}
-                {this.props.viewing_pokemon != null &&
+                {(this.props.viewing_pokemon != null && !this.props.selecting_compare) &&
                     <PokemonCard pokemon={this.props.viewing_pokemon} />
                 }
                 </div>
@@ -41,7 +41,8 @@ const mapStateToProps = state => {
 
     return {
        viewing_pokemon: state.viewing_pokemon,
-       current_view: state.current_view
+       current_view: state.current_view,
+       selecting_compare: state.selecting_compare
     }
 
 }
