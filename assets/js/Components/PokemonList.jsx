@@ -125,13 +125,13 @@ class PokemonList extends Component {
                             <th>
                                 <h3>Defense</h3>
                             </th>
-                            <th>
+                            <th className="hidden-xs">
                                 <h3>Special<br/> Attack</h3>
                             </th>
-                            <th>
+                            <th className="hidden-xs">
                                 <h3>Special<br/> Defense</h3>
                             </th>
-                            <th>
+                            <th className="hidden-xs">
                                 <h3>Speed</h3>
                             </th>
                         </tr>

@@ -12,10 +12,10 @@ class Header extends Component {
             <header>
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-6">
+                        <div className="col-xs-6">
                             <h1 onClick={this.props.viewNav}>PokeIgniter</h1>
                         </div>
-                        <div className="col-sm-6">
+                        <div className="col-xs-6">
                             <p>{username}</p>
                         </div>
                     </div>

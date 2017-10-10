@@ -29,7 +29,7 @@ class TableRow extends Component {
         let i = 0;
         this.props.pokemon.stats.forEach(s => {
             let classNames = "";
-            if (i > 3) classNames += "hidden-xs";
+            if (i < 3) classNames += "hidden-xs";
             renderStats.push(
                 <td key={i} className={classNames}>
                     <p>{s.base_stat}</p>

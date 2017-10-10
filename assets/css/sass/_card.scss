@@ -6,6 +6,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width:991px) {
+        flex-wrap:wrap;
+        overflow-x: hidden;
+        padding:60px 0;
+    }
     top:0;
     left:0;
     &-click-off {
@@ -20,13 +25,24 @@
     .pokemon-card-compare {
         overflow: hidden;
         margin: 0 15px;
-        max-height: 500px;
+        @media screen and (min-width:992px) {
+            max-height: 500px;
+        }
         z-index: 2;
         position: relative;
         border-radius: 10px;
         background:white;
         text-align: center;
         padding:15px 25px;
+        @media screen and (min-width:992px) {
+            width:580px
+        }
+        @media screen and (max-width:991px) {
+            margin:15px 0;
+            max-width: 90%;
+            padding-left:0;
+            padding-right:0;
+        }
         a.pokemon-card-close {
             position: absolute;
             cursor: pointer;
@@ -51,9 +67,16 @@
         .stats-barchart {
             min-height:200px;
             margin-bottom: 50px;
+            @media screen and (max-width:992px) {
+                margin-bottom:80px;
+                min-height: 125px;
+            }
             .pokemon-stat {
                 height:100%;
                 min-height:200px;
+                @media screen and (max-width:992px) {
+                    min-height:125px;
+                }
                 position: relative;
                 .stat-bar {
                     position: absolute;
@@ -85,6 +108,9 @@
                         color: white;
                         font-size:11px;
                         font-weight: bold;
+                        @media screen and (max-width:991px) {
+                            font-size:10px;
+                        }
                         &.stat-label {
                             position: absolute;
                             top:100%;
@@ -186,6 +212,11 @@
                 &.water {
                     background:#3193F5;
                 }
+            }
+        }
+        @media screen and (max-width:992px) {
+            &:last-child {
+                margin-bottom: 50px;
             }
         }
     }

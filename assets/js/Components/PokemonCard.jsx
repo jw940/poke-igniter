@@ -121,7 +121,7 @@ class PokemonCard extends Component {
             renderBarColors.push(<div className={barPartClassName} key={i}></div>)
             i++;
         })
-        var cardClasses = "pokemon-card-inner col-sm-5 col-xs-12"
+        var cardClasses = "pokemon-card-inner col-md-5 col-sm-9 col-xs-12"
         if (pokemon.types.length > 1) cardClasses += " double-type"
         
         // prepare stats and abilities for pokemon
@@ -146,7 +146,7 @@ class PokemonCard extends Component {
                 renderCompareBarColors.push(<div className={barPartClassName} key={i}></div>)
                 i++;
             })
-            var compareCardClasses = "pokemon-card-compare col-sm-5 col-xs-12";
+            var compareCardClasses = "pokemon-card-compare col-md-5 col-sm-9 col-xs-12";
             if (pokemon.types.length > 1) cardClasses += " double-type"
 
             // prepare stats and abilities for compared pokemon
@@ -170,10 +170,14 @@ class PokemonCard extends Component {
                         {renderStatBars}
                     </div>
                     <div className="abilities col-sm-4">
-                        <h4>Types</h4>
-                        {renderTypes}
-                        <h4>Abilities</h4>
-                        {renderAbilities}
+                        <div className="col-xs-6 col-sm-12">
+                            <h4>Types</h4>
+                            {renderTypes}
+                        </div>
+                        <div className="col-xs-6 col-sm-12">
+                            <h4>Abilities</h4>
+                            {renderAbilities}
+                        </div>
                     </div>
                     {null == this.props.compare_pokemon &&
                         <div className="compare-link col-sm-12">
@@ -194,10 +198,14 @@ class PokemonCard extends Component {
                             {renderCompareStatBars}
                         </div>
                         <div className="abilities col-sm-4">
-                            <h4>Types</h4>
-                            {renderCompareTypes}
-                            <h4>Abilities</h4>
-                            {renderCompareAbilities}
+                            <div className="col-xs-6 col-sm-12">
+                                <h4>Types</h4>
+                                {renderCompareTypes}
+                            </div>
+                            <div className="col-xs-6 col-sm-12">
+                                <h4>Abilities</h4>
+                                {renderCompareAbilities}
+                            </div>
                         </div>
                     </div>
                 }

@@ -12,8 +12,13 @@
             border-right:0;
             border-bottom: 2px solid #e5e5e5;
         }
-        &:last-child {
-            justify-content: flex-end;
+        @media screen and (min-width:768px) {
+            &:last-child {
+                justify-content: flex-end;
+            }
+        }
+        @media screen and (max-width:767px) {
+            justify-content: center;
         }
         p {
             margin: 0 15px 0 0;
@@ -31,6 +36,9 @@ table.pokemon-table {
             margin: 10px 0 10px 5px;
             font-size:18px;
             line-height: 24px;
+            @media screen and (max-width:767px) {
+                font-size:14px;
+            }
         }
     }
 
