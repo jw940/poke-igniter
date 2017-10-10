@@ -2,7 +2,7 @@ header {
     position: fixed;
     top:0;
     left:0;
-    background:#e5e5e5;
+    background:transparent;
     width:100%;
     height: 50px;
     z-index: 2;
@@ -12,7 +12,11 @@ header {
         margin: 0;
     }
     p {
-        margin: 0;
+        margin: 0 10px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
     .col-xs-6 {
         display: flex;

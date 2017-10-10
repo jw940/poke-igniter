@@ -14,10 +14,6 @@ class Nav extends Component {
                     <i className="fa fa-star-o"></i>
                     <a>Saved Pokemon</a>
                 </div>
-                <div onClick={this.props.selectView.bind(this, "list")} className="nav-link">
-                    <i className="fa fa-user-circle"></i>
-                    <a>Log In</a>
-                </div>
             </div>
         );
     }

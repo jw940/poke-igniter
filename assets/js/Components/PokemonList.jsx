@@ -135,7 +135,7 @@ class PokemonList extends Component {
                                 <h3>Speed</h3>
                             </th>
                             <th>
-                                <h3>Save</h3>
+                                <h3>Favourite</h3>
                             </th>
                         </tr>
                     </thead>

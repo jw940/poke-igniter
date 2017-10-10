@@ -13,10 +13,14 @@ class Header extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-6">
-                            <h1 onClick={this.props.viewNav}>PokeIgniter</h1>
+                            <h1 onClick={this.props.changeView.bind(this, "nav")}>PokeIgniter</h1>
                         </div>
                         <div className="col-xs-6">
-                            <p>{username}</p>
+                            <p onClick={this.props.changeView.bind(this, "nav")}>Home</p>
+                            <p> | </p>
+                            <p onClick={this.props.changeView.bind(this, "list")}>All Pokemon</p>
+                            <p> | </p>
+                            <p onClick={this.props.changeView.bind(this, "starred")}>Favourite</p>
                         </div>
                     </div>
                 </div>
@@ -33,8 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        viewNav: () => {
-            dispatch(AppActions.ChangeView("nav"))
+        changeView: (view) => {
+            dispatch(AppActions.ChangeView(view))
         }
     }
 }
