@@ -134,6 +134,9 @@ class PokemonList extends Component {
                             <th className="hidden-xs">
                                 <h3>Speed</h3>
                             </th>
+                            <th>
+                                <h3>Save</h3>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,14 +152,23 @@ class PokemonList extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
 
     let pokemon_results = state.all_pokemon;
-    
-    if (state.search) {
-        pokemon_results = pokemon_results.filter(p => {
-            return p.name.includes(state.search)
-        })
+
+    if (pokemon_results.length) {
+        // filter down pokemon - if they're starred, or searched
+        if (ownProps.show_starred) {
+            pokemon_results = pokemon_results.filter(p => {
+                return state.starred_pokemon.includes(p.id);
+            })
+        }
+        
+        if (state.search) {
+            pokemon_results = pokemon_results.filter(p => {
+                return p.name.includes(state.search)
+            })
+        }
     }
 
     return {

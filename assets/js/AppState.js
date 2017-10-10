@@ -2,6 +2,7 @@ export const defaultState = {
     all_pokemon: {},
     all_abilities: {},
     all_types: {},
+    starred_pokemon: [],
     pokemon_count: 0,
     selecting_compare: false,
     viewing_pokemon: null,
@@ -88,6 +89,12 @@ export const AppActions = {
             type: "CHANGE_VIEW",
             view: view
         }
+    },
+    SavePokemonToggle: id => {
+        return {
+            type: "SAVE_POKEMON_TOGGLE",
+            id: id
+        }
     }
 }
 
@@ -173,6 +180,20 @@ export default function AppState(state, action) {
         case "CHANGE_VIEW":
             newState.current_view = action.view;
             newState.page = 1;
+            return newState;
+
+        case "SAVE_POKEMON_TOGGLE":
+            
+            let is_saved = newState.starred_pokemon.length ? newState.starred_pokemon.filter(s => {
+                return s == action.id
+            }) : [];
+            if (is_saved[0]) {
+                newState.starred_pokemon = newState.starred_pokemon.filter(s => {
+                    return s != action.id
+                });
+            } else {
+                newState.starred_pokemon.push(action.id);
+            }
             return newState;
 
         default:

@@ -15,6 +15,8 @@ class AppRoot extends Component {
                 return <Nav />
             case "list":
                 return <PokemonList />
+            case "starred":
+                return <PokemonList show_starred={true} />
         }
     }
     

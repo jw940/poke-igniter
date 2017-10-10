@@ -40,6 +40,11 @@ class TableRow extends Component {
         return renderStats.reverse();
     }
 
+    savePokemonToggle(e) {
+        e.stopPropagation();
+        this.props.savePokemonToggle(this.props.pokemon.id);
+    }
+
     render() {
 
         let pokemon = this.props.pokemon;
@@ -57,11 +62,14 @@ class TableRow extends Component {
 
         if (this.props.pokemon.details_fetched) {
             let renderStats = this.renderStats();
+            let starClasses = "pokemon-save";
+            if (this.props.is_starred) starClasses += " saved";
             return (
                 <tr onClick={onClick}>
                     <td><img src={pokemon.sprites.front_default} className="img-responsive" /></td>
                     <td><p>{pokemon.name.capitalize()}</p></td>
                     {renderStats}
+                    <td><a className={starClasses} onClick={this.savePokemonToggle.bind(this)}></a></td>
                 </tr>
             );
         } else {
@@ -73,9 +81,20 @@ class TableRow extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+
+    var is_starred = false;
+
+    if (state.starred_pokemon.length) {
+        is_starred = state.starred_pokemon.filter(s => {
+            return s == ownProps.pokemon.id
+        });
+        is_starred = is_starred[0] ? true : false;
+    }
+
     return {
-        selecting_compare: state.selecting_compare
+        selecting_compare: state.selecting_compare,
+        is_starred: is_starred
     }
 }
 
@@ -89,6 +108,9 @@ const mapDispatchToProps = dispatch => {
         },
         selectCompareCard: id => {
             dispatch(AppActions.SelectCompareCard(id));
+        },
+        savePokemonToggle: id => {
+            dispatch(AppActions.SavePokemonToggle(id));
         }
     }
 }

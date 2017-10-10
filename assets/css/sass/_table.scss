@@ -57,6 +57,28 @@ table.pokemon-table {
             p {
                 margin: 0;
             }
+            &:last-child {
+                text-align: center;
+                @media screen and (min-width:992px) {
+                    h3 {
+                        margin-right:25px;
+                    }
+                }
+            }
+            .pokemon-save {
+                background:url(../img/star.png) no-repeat center center;
+                background-size:contain;
+                width:20px;
+                height:20px;
+                display: block;
+                transition:all 150ms ease-out;
+                &.saved {
+                    background-image:url(../img/star-filled.png);
+                }
+                &:hover {
+                    transform:scale(1.2);
+                }
+            }
         }
     }
 }

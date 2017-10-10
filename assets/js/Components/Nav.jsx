@@ -8,7 +8,11 @@ class Nav extends Component {
             <div className="container view-nav">
                 <div onClick={this.props.selectView.bind(this, "list")} className="nav-link">
                     <i className="fa fa-list"></i>
-                    <a>List Pokemon</a>
+                    <a>All Pokemon</a>
+                </div>
+                <div onClick={this.props.selectView.bind(this, "starred")} className="nav-link">
+                    <i className="fa fa-star-o"></i>
+                    <a>Saved Pokemon</a>
                 </div>
                 <div onClick={this.props.selectView.bind(this, "list")} className="nav-link">
                     <i className="fa fa-user-circle"></i>
