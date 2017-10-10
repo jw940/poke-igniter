@@ -13,7 +13,7 @@ class Header extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-6">
-                            <h1>PokeIgniter</h1>
+                            <h1 onClick={this.props.viewNav}>PokeIgniter</h1>
                         </div>
                         <div className="col-sm-6">
                             <p>{username}</p>
@@ -31,4 +31,12 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => {
+    return {
+        viewNav: () => {
+            dispatch(AppActions.ChangeView("nav"))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

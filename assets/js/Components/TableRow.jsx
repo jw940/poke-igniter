@@ -28,8 +28,10 @@ class TableRow extends Component {
         let renderStats = [];
         let i = 0;
         this.props.pokemon.stats.forEach(s => {
+            let classNames = "";
+            if (i > 3) classNames += "hidden-xs";
             renderStats.push(
-                <td key={i}>
+                <td key={i} classNames={classNames}>
                     <p>{s.base_stat}</p>
                 </td>
             )
@@ -47,7 +49,7 @@ class TableRow extends Component {
             return (
                 <tr onClick={() => {this.props.openPokemonCard(pokemon.id)}}>
                     <td><img src={pokemon.sprites.front_default} className="img-responsive" /></td>
-                    <td>{pokemon.name.capitalize()}</td>
+                    <td><p>{pokemon.name.capitalize()}</p></td>
                     {renderStats}
                 </tr>
             );

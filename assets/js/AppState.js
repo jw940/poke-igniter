@@ -5,7 +5,8 @@ export const defaultState = {
     viewing_pokemon: null,
     page: 1,
     per_page: 10,
-    search: ""
+    search: "",
+    current_view: "nav"
 };
 
 export const AppActions = {
@@ -55,6 +56,12 @@ export const AppActions = {
         return {
             type: "UPDATE_PER_PAGE",
             per_page: per_page
+        }
+    },
+    ChangeView: view => {
+        return {
+            type: "CHANGE_VIEW",
+            view: view
         }
     }
 }
@@ -112,6 +119,11 @@ export default function AppState(state, action) {
 
         case "UPDATE_PER_PAGE":
             newState.per_page = parseInt(action.per_page);
+            return newState;
+
+        case "CHANGE_VIEW":
+            newState.current_view = action.view;
+            newState.page = 1;
             return newState;
 
         default:
